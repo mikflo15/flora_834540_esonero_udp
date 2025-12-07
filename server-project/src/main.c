@@ -275,7 +275,7 @@ int main(int argc, char *argv[]) {
             res.type = '\0';
         }
         else if (!is_valid_city_string(req.city)) {
-            res.status = STATUS_INVALID_REQ;
+            res.status = STATUS_CITY_NOT_FOUND;
             res.type = '\0';
         }
         // città troppo lunga? (il client dovrebbe aver già validato)
