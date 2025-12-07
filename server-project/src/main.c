@@ -275,7 +275,22 @@ int main(int argc, char *argv[]) {
             res.type = '\0';
         }
         else if (!is_valid_city_string(req.city)) {
-            res.status = STATUS_CITY_NOT_FOUND;
+
+            int contiene_cifre = 0;
+            int contiene_speciali = 0;
+
+            for (const unsigned char *p = (unsigned char*)req.city; *p; p++) {
+                if (*p >= '0' && *p <= '9')
+                    contiene_cifre = 1;
+                else if (*p == '@' || *p == '#' || *p == '$' || *p == '%')
+                    contiene_speciali = 1;
+            }
+
+            if (contiene_speciali)
+                res.status = STATUS_INVALID_REQ;   // caratteri speciali → INVALID_REQ
+            else
+                res.status = STATUS_CITY_NOT_FOUND; // numeri → CITY_NOT_FOUND
+
             res.type = '\0';
         }
         // città troppo lunga? (il client dovrebbe aver già validato)
