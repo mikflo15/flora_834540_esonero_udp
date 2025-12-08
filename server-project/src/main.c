@@ -276,13 +276,10 @@ int main(int argc, char *argv[]) {
         }
         else if (!is_valid_city_string(req.city)) {
 
-            int contiene_cifre = 0;
             int contiene_speciali = 0;
 
             for (const unsigned char *p = (unsigned char*)req.city; *p; p++) {
-                if (*p >= '0' && *p <= '9')
-                    contiene_cifre = 1;
-                else if (*p == '@' || *p == '#' || *p == '$' || *p == '%')
+                if (*p == '@' || *p == '#' || *p == '$' || *p == '%')
                     contiene_speciali = 1;
             }
 
